@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.luckyowee.dscatalog.entities.Category;
+import com.luckyowee.dscatalog.dto.CategoryDTO;
 import com.luckyowee.dscatalog.services.CategoryService;
 
 @RestController
@@ -19,7 +19,7 @@ public class CategoryResource {
 	private CategoryService service;
 	
 	@GetMapping
-	public ResponseEntity<List <Category>> findAll() {
+	public ResponseEntity<List <CategoryDTO>> findAll() {
 		/*
 		 * Mock para testar inicialmente os endpoints enquanto nao tinha acesso ao Category Service
 		List<Category> list = new ArrayList<>();
@@ -27,7 +27,7 @@ public class CategoryResource {
 		list.add(new Category(2L, "Electronics"));
 		list.add(new Category(3L, "Beverages"));
 		*/
-		List<Category> list = service.findAll(); //retorna os dados e salva em list		
+		List<CategoryDTO> list = service.findAll(); //retorna os dados e salva em list		
 		return ResponseEntity.ok().body(list);
 	}
 	
