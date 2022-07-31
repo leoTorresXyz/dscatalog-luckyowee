@@ -1,6 +1,7 @@
 package com.luckyowee.dscatalog.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.luckyowee.dscatalog.dto.CategoryDTO;
 import com.luckyowee.dscatalog.entities.Category;
 import com.luckyowee.dscatalog.repositories.CategoryRepository;
+import com.luckyowee.dscatalog.services.exceptions.EntityNotFoundException;
 
 @Service
 public class CategoryService {
@@ -28,6 +30,13 @@ public class CategoryService {
 		}
 		return listDto;
 		*/
+	}
+	
+	@Transactional(readOnly = true)
+	public CategoryDTO findById(Long id) {
+		Optional<Category> obj = repository.findById(id);
+		Category entity = obj.orElseThrow(() -> new EntityNotFoundException("Entity not found"));
+		return new CategoryDTO(entity);
 	}
 	
 }
